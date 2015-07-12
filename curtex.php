@@ -3,10 +3,10 @@ include_once('webClient.php');
 
 	class test extends webClient{
 
-	//public $url="http://localhost:81/resttest/rest/test/status.php";
+	//public $url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 	
 	function getCaptcha($capacha){
-		$url="http://localhost:81/resttest/rest/test/status.php";
+		$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 		$this->httpGet($url);
 	}
 	
@@ -22,7 +22,7 @@ include_once('webClient.php');
 
 	$api=new test();
 	//$api->processApi();
-	//echo $api->httpGet("http://localhost:81/resttest/rest/test/status.php");
+	//echo $api->httpGet("http://localhost:81/resttest/rest/test/deviceDependent/status.php");
 
 ?>
 
@@ -38,7 +38,7 @@ if (empty($_POST)) {
   <form method="post">
     <p>You can set up it normally as you like <input type="text" name="name" value="" placeholder="Name" /></p>
     <!-- implement sweetcaptcha -->
-    <?php echo $api->httpGet("http://localhost:81/resttest/rest/test/status.php"); 
+    <?php echo $api->httpGet("http://localhost:81/resttest/rest/test/deviceDependent/status.php"); 
 			//echo $api->getCaptcha(null);
 	?>
     <!-- continue with your form -->
@@ -50,12 +50,12 @@ if (empty($_POST)) {
 } else { 
 
 	$data = $_POST;
-	
+	$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 	
 	///sweet catpcha
 	if (isset($_POST['sckey']) and isset($_POST['scvalue'])) {
 		$data['captchaName'] = 'sweet';
-		$url="http://localhost:81/resttest/rest/test/status.php";
+		//$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 		$jsonString= $api->httpPost($url,$data);
 		echo $jsonString;
 	}
@@ -67,7 +67,7 @@ if (empty($_POST)) {
 		$data['privatekey'] = '6Lf3kAYTAAAAAEMVCybX4IDJtl_uEpJKuQsPc8Q5';
 		$data['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
 					
-		$url="http://localhost:81/resttest/rest/test/status.php";
+		//$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 		$jsonString= $api->httpPost($url,$data);
 	   
 		echo $jsonString;
@@ -83,7 +83,7 @@ if (empty($_POST)) {
 		);*/
 		$data['session_secret'] = $_REQUEST["session_secret"];
         
-		$url="http://localhost:81/resttest/rest/test/status.php";
+		//$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 		$jsonString= $api->httpPost($url,$data);
 		
 	    echo $jsonString;
@@ -100,7 +100,7 @@ if (empty($_POST)) {
 		);*/
 		//echo @$_POST['ct_captcha'];
 		
-		$url="http://localhost:81/resttest/rest/test/status.php";
+		//$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 		$jsonString= $api->httpPost($url,$data);
 		
 		echo $jsonString;
