@@ -1,6 +1,7 @@
 <?php
 include_once('webClient.php');
 
+$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 	class test extends webClient{
 
 	//public $url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
@@ -21,15 +22,10 @@ include_once('webClient.php');
 	}
 
 	$api=new test();
-	//$api->processApi();
-	//echo $api->httpGet("http://localhost:81/resttest/rest/test/deviceDependent/status.php");
-
+	
 ?>
 
 <?php
-
-// require sweetcaptcha php sdk, don't forget to set up your credentials first
-//require_once('sweetcaptcha.php');
 
 if (empty($_POST)) {
   // print sweetcaptcha in your form
@@ -38,7 +34,7 @@ if (empty($_POST)) {
   <form method="post">
     <p>You can set up it normally as you like <input type="text" name="name" value="" placeholder="Name" /></p>
     <!-- implement sweetcaptcha -->
-    <?php echo $api->httpGet("http://localhost:81/resttest/rest/test/deviceDependent/status.php"); 
+    <?php echo $api->httpGet($url); 
 			//echo $api->getCaptcha(null);
 	?>
     <!-- continue with your form -->
@@ -50,9 +46,6 @@ if (empty($_POST)) {
 } else { 
 
 	$data = $_POST;
-	$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
-	
-	//$captcha =""
 	
 	///sweet catpcha
 	if (isset($_POST['sckey']) and isset($_POST['scvalue'])) {
