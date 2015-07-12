@@ -52,12 +52,11 @@ if (empty($_POST)) {
 	$data = $_POST;
 	$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
 	
+	//$captcha =""
+	
 	///sweet catpcha
 	if (isset($_POST['sckey']) and isset($_POST['scvalue'])) {
 		$data['captchaName'] = 'sweet';
-		//$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
-		$jsonString= $api->httpPost($url,$data);
-		echo $jsonString;
 	}
    
 	/////////// recaptcha stuff
@@ -67,10 +66,6 @@ if (empty($_POST)) {
 		$data['privatekey'] = '6Lf3kAYTAAAAAEMVCybX4IDJtl_uEpJKuQsPc8Q5';
 		$data['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
 					
-		//$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
-		$jsonString= $api->httpPost($url,$data);
-	   
-		echo $jsonString;
 	}
 	
 	
@@ -82,29 +77,24 @@ if (empty($_POST)) {
 		"session_secret" => '$_REQUEST["session_secret"]'
 		);*/
 		$data['session_secret'] = $_REQUEST["session_secret"];
-        
-		//$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
-		$jsonString= $api->httpPost($url,$data);
 		
-	    echo $jsonString;
-    }
-	
+		//echo "playtrue";
+        
+	}
 	
 	//secureimage stuff
 	if (isset($_POST["ct_captcha"]) ){
 	
 		$data['captchaName'] = 'secureimage';
+		$data['ct_captcha'] = $_POST['ct_captcha'];
 		///secure image captcha stuff
 		/*$data = array(
 		"ct_captcha" => @$_POST['ct_captcha']
 		);*/
-		//echo @$_POST['ct_captcha'];
-		
-		//$url="http://localhost:81/resttest/rest/test/deviceDependent/status.php";
-		$jsonString= $api->httpPost($url,$data);
-		
-		echo $jsonString;
 	}
+	
+		$jsonString= $api->httpPost($url,$data);
+		echo $jsonString;
 }
 
 ?>

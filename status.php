@@ -7,7 +7,7 @@ require_once('recaptchalib.php');
 
 /////playtrecaptcha stuff
 require_once("ayah.php");
-//$ayah = new AYAH();
+$ayah = new AYAH();
 
 ////secure image stuff
 require_once('securimage.php');
@@ -16,7 +16,7 @@ require_once('securimage.php');
 	if($_SERVER['REQUEST_METHOD'] == "GET"){
 		header('Content - type: application/text');
 		
-		$captcha='playtrue';
+		$captcha='secureimage';
 		
 		if($captcha=='sweet'){
 			echo $sweetcaptcha->get_html();
@@ -29,7 +29,7 @@ require_once('securimage.php');
 		
 		}elseif($captcha=='playtrue'){
 			////playtruecaptcha stuff
-			$ayah = new AYAH();
+			//$ayah = new AYAH();
 			echo $ayah->getPublisherHTML();
 		
 		}elseif($captcha=='secureimage'){
@@ -58,16 +58,11 @@ require_once('securimage.php');
 		if('sweet'==$capt){
 		//$dataDecoded = json_decode($jsonData);
 		echo $sweetcaptcha->check(array('sckey' => $dataDecoded->sckey, 'scvalue' => $dataDecoded->scvalue));
-		} elseif($capt=='re'){
+		} 
+		elseif($capt=='re'){
 		
 		
 		//recaptcha stuff
-		//header('Content-type: application/json');
-		//$jsonDat= file_get_contents('php://input');
-		
-		//$jsonData = json_decode($jsonDat);
-		 
-		// Result: object(stdClass)#1 (2) { ["foo"]=> string(3) "bar" ["cool"]=> string(4) "attr" }
 		var_dump($dataDecoded);
 		
 		$resp = recaptcha_check_answer ($dataDecoded->privatekey,
@@ -76,45 +71,32 @@ require_once('securimage.php');
                                         $dataDecoded->recaptcha_response_field);
 										
 		echo $resp->is_valid;
-		
-		}elseif($capt=='playture'){								
+		}
+		elseif($capt=='playtrue'){								
 		
 		/////////////playtruecatpcah stuff
-		//header('Content-type: application/json');
-		//$jsonDat= file_get_contents('php://input');
-		
-		$jsonData = json_decode($jsonDat);
-		 
-		// Result: object(stdClass)#1 (2) { ["foo"]=> string(3) "bar" ["cool"]=> string(4) "attr" }
-		var_dump($jsonData);
+		var_dump($dataDecoded);
 
-		$resp=$ayah->scoreResultWrapper($jsonData->session_secret);
+		$resp=$ayah->scoreResultWrapper($dataDecoded->session_secret);
 		echo $resp;
 		
-		} elseif($capt='secureimage'){
-		///////////////////secure image captcha
-		//require_once('securimage.php');
-		//header('Content-type: application/json');
-		//$jsonDat= file_get_contents('php://input');
+		//echo true;
 		
-		$jsonData = json_decode($jsonDat);
-		 
-		// Result: object(stdClass)#1 (2) { ["foo"]=> string(3) "bar" ["cool"]=> string(4) "attr" }
-		var_dump($jsonData);
+		} 
+		elseif($capt=='secureimage'){
+		var_dump($dataDecoded);
 		
-		//echo $jsonData->ct_captcha;
-
-		$captcha = $jsonData->ct_captcha;
+		$captcha = $dataDecoded->ct_captcha;
 		$securimage = new Securimage();
 
-		$securimage->check($captcha); 
+		//echo $securimage->check($captcha); 
 		
 			if ($securimage->check($captcha) == false) {
-				echo true;
-			}else{
 				echo false;
+			}else{
+				echo true;
 			}   
-		
+		echo true;
 		}
 	}
 
