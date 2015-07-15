@@ -25,7 +25,7 @@ class webClient{
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 		curl_setopt($ch,CURLOPT_HEADER, false); 
 		curl_setopt($ch, CURLOPT_POST, count($postData));
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);    
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 	 
 		$output=curl_exec($ch);
 	 
